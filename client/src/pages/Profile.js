@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useContext,useState } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import dateFormat from "dateformat";
 import convertRupiah from "rupiah-format";
 
@@ -9,6 +9,8 @@ import { UserContext } from "../context/userContext";
 
 import imgBlank from "../assets/blank-profile.png";
 
+import AddProfile from '../components/modal/AddProfile';
+
 // Import useQuery
 import { useQuery } from "react-query";
 
@@ -16,7 +18,11 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 
 export default function Profile() {
-  
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const title = "Profile";
   document.title = title;
 
@@ -36,6 +42,7 @@ export default function Profile() {
       };
       const response = await api.get("/profile", config);
       return response.data;
+      console.log(response.data)
     }
   );
 
@@ -65,7 +72,7 @@ export default function Profile() {
               <Col md="6">
                 <img
                   src={profile?.image ? profile.image : imgBlank}
-                  className="img-fluid rounded"
+                  className="img-profile img-fluid rounded"
                   alt="profile"
                 />
               </Col>
@@ -91,6 +98,7 @@ export default function Profile() {
                   {profile?.address ? profile?.address : "-"}
                 </div>
               </Col>
+            <Button onClick={handleShow} className="btn-danger mt-4">Add Profile</Button>
             </Row>
           </Col>
           <Col md="6">
@@ -177,6 +185,10 @@ export default function Profile() {
             )}
           </Col>
         </Row>
+        <AddProfile 
+          show={show}
+          handleClose={handleClose}
+        />
       </Container>
     </>
   );

@@ -17,8 +17,8 @@ import {io} from 'socket.io-client'
 // initial variable outside socket
 let socket
 export default function ComplainAdmin() {
-    const [contact, setContact] = useState(null)
-    const [contacts, setContacts] = useState([])
+    const [contact, setContact] = useState(null)//data contact yang di klik
+    const [contacts, setContacts] = useState([])//data contact dari server
     // create messages state
     const [messages, setMessages] = useState([])
 
@@ -31,10 +31,10 @@ export default function ComplainAdmin() {
     useEffect(() =>{
         socket = io('http://localhost:5000', {//ketika dimounting akan mengisikan socket dan memunculkan
             auth: {                           //client connect
-                token: localStorage.getItem('token')
+                token: localStorage.getItem('token')//kirim ke backend line 17
             },
             query: {
-                id: state.user.id
+                id: state.user.id//send query at server Scket,query.id
             }
         })
 
@@ -44,17 +44,17 @@ export default function ComplainAdmin() {
             socket.emit("load messages", contact?.id)
         })
 
-        loadContacts()
+        loadContacts()//pemanggilan function agar dieksekusi
         loadMessages()
 
         return () => {
             socket.disconnect()//ketika return maka proses unmount langsung ditulis karena sudah ada nilai default 
             //untk diconnect dan connection di server
         }
-    }, [messages])
+    }, [messages])//menambahkan perubahan dari messagesnya
 
     const loadContacts = () => {
-        socket.emit("load customer contacts")
+        socket.emit("load customer contacts")//perintah ke server untuk on load cstmr cntct di server
         socket.on("customer contacts", (data) => {
             // filter just customers which have sent a message
             let dataContacts = data.filter(item => (item.status !== "admin") && (item.recipientMessage.length > 0 || item.senderMessage.length > 0))
@@ -96,7 +96,7 @@ export default function ComplainAdmin() {
         // listen only enter key event press
         if(e.key === 'Enter') {
             const data = {
-                idRecipient: contact.id,
+                idRecipient: contact.id,//dari kontak yang diklik
                 message: e.target.value
             }
 

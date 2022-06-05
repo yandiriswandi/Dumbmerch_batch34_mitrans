@@ -10,6 +10,12 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/user');
+//profile
+const { 
+  getProfile,
+  addProfile,
+  updateProfile 
+} = require('../controllers/profile');
 const {
   getProducts,
   getProduct,
@@ -29,7 +35,7 @@ const {
   getCategory,
   deleteCategory,
 } = require('../controllers/category');
-const { getProfile } = require('../controllers/profile');
+// const { getProfile } = require('../controllers/profile');
 const { register, login, checkAuth } = require('../controllers/auth');
 
 // Middleware
@@ -43,7 +49,10 @@ router.get('/user/:id', getUser);
 router.delete('/user/:id', updateUser);
 router.delete('/user/:id', deleteUser);
 
-router.get('/profile', auth, getProfile);
+// router.get('/profile', auth, getProfile);
+router.get('/profiles',auth, getProfile);
+router.post('/profile',auth,uploadFile('image'), addProfile);
+router.patch('/profile/:id',auth,uploadFile('image'), updateProfile);
 
 router.get('/products', auth, getProducts);
 router.get('/product/:id', auth, getProduct);

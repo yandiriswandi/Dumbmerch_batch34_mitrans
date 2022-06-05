@@ -331,7 +331,10 @@ textarea:focus {
   color: #f74d4d;
   margin-bottom: 6px;
 }
-
+.img-profile{
+  height: 400px !important;
+  width: 300px !important;
+}
 .profile-content {
   font-style: normal;
   font-weight: normal;

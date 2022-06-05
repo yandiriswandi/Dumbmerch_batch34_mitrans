@@ -33,10 +33,10 @@ export default function Complain() {
     useEffect(() =>{
         socket = io('http://localhost:5000', {//ketika dimounting akan mengisikan socket dan memunculkan
             auth: {                           //client connect
-                token: localStorage.getItem("token")
+                token: localStorage.getItem("token")//kirim ke backend line 17
             },
             query: {
-                id: state.user.id
+                id: state.user.id//send query at server Scket,query.id
             }
         })
 
@@ -50,7 +50,7 @@ export default function Complain() {
         // listen error sent from server
         socket.on("connect_error", (err) => {
             console.error(err.message); // not authorized
-          });
+        });
         loadContact()
         loadMessages()
 
@@ -66,11 +66,12 @@ export default function Complain() {
         // listen event to get admin contact
         socket.on("admin contact", async (data) => {
             // manipulate data to add message property with the newest message
+            //tidak maping karana single data
             const dataContact = {
                 ...data, 
                 message: messages.length > 0 ? messages[messages.length -1].message : "Click here to start message"
             }
-            setContacts([dataContact])
+            setContacts([dataContact])//pengiriman data pake array karena maping di component contact
         })
     }
 

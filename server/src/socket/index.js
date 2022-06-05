@@ -8,10 +8,14 @@ const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 
 const connectedUser = {};
+
+// on = penerima informasi/event  
+// emmit = pengirim informasi
 const socketIo = (io) => {
   // create middlewares to prevent client without token to access socket server
   io.use((socket, next) => {
     if (socket.handshake.auth && socket.handshake.auth.token) {
+      //pengisian token dari fe berdasarkan localstorage
       next();
     } else {
       next(new Error("Not Authorized"));
@@ -22,7 +26,7 @@ const socketIo = (io) => {
     console.log("client connect: ", socket.id);//id perbeda tiap client
 
     // get user by connected id
-    const userId = socket.handshake.query.id;
+    const userId = socket.handshake.query.id;//query dari FE
 
     // save to connectedUser
     connectedUser[userId] = socket.id;
@@ -140,7 +144,7 @@ const socketIo = (io) => {
               },
             },
           ],
-          order: [["createdAt", "ASC"]],
+          order: [["createdAt", "ASC"]],//ascending dari terbesar atau terbaru message
           attributes: {
             exclude: ["createdAt", "updatedAt", "idRecipient", "idSender"],
           },
