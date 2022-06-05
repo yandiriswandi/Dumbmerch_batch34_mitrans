@@ -14,6 +14,7 @@ import UpdateCategoryAdmin from "./pages/UpdateCategoryAdmin";
 import AddCategoryAdmin from "./pages/AddCategoryAdmin";
 import AddProductAdmin from "./pages/AddProductAdmin";
 import UpdateProductAdmin from "./pages/UpdateProductAdmin";
+import SortingProduct from "./pages/SortingProduct";
 
 import { API } from "./config/api";
 
@@ -75,6 +76,7 @@ function App() {
   return (
     <Routes>
       <Route exact path="/" element={ < Product />} />
+      <Route exact path="/category/:id" element={ < SortingProduct />} />
       <Route path="/auth" element={< Auth />} />
       <Route path="/product/:id" element={< DetailProduct />} />
       <Route path="/complain" element={< Complain />} />

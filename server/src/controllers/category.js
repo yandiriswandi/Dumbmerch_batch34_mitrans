@@ -24,24 +24,38 @@ exports.getCategories = async (req, res) => {
 exports.getCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await category.findOne({
+
+    const data = await category.findAll({
       where: {
         id,
       },
+      include: {
+        model: product,
+        as: 'products',
+        through: {
+          model: categoryProduct,
+          as: 'bridge',
+        },
+        attributes: {
+          exclude: ['createdAt', 'updatedAt'],
+        },
+      },
       attributes: {
-        exclude: ["createdAt", "updatedAt"],
+        exclude: ['createdAt', 'updatedAt'],
       },
     });
 
     res.send({
-      status: "success...",
-      data,
+      status: 'success',
+      data: {
+        category : data,
+      },
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
+    res.send({
+      status: 'failed',
+      message: 'Server Error',
     });
   }
 };

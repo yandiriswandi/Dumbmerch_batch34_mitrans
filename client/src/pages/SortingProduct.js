@@ -2,8 +2,8 @@ import Masonry from "react-masonry-css";
 import { Container, Row, Col } from "react-bootstrap";
 
 import Navbar from "../components/Navbar";
-import ProductCard from "../components/card/ProductCard";
-import { Link } from "react-router-dom";
+import SortingProductCard from "../components/card/SortingProductCard";
+import { Link, useParams } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 // Import useQuery
@@ -12,8 +12,9 @@ import { useQuery } from "react-query";
 // API config
 import { API } from "../config/api";
 
-export default function Product() {
+export default function SortingProduct() {
   let api = API();
+  let { id } = useParams();
 
   const title = "product";
   document.title = title;
@@ -24,9 +25,20 @@ export default function Product() {
 
   // Fetching categories data from database
   let { data: categories } = useQuery("categoriesCache", async () => {
-    const response = await api.get("/categories");
+    const response = await api.get("/category/");
     return response.data;
     console.log(response.data)
+  });
+   // Fetching  data from database
+   let { data: category } = useQuery('Cache', async () => {
+    const config = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Basic ' + localStorage.token,
+      },
+    };
+    const response = await api.get('/category/' + id, config);
+    return response.data;
   });
 
   // Fetching product data from database
@@ -94,8 +106,8 @@ export default function Product() {
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >
-              {products?.map((item, index) => (
-                <ProductCard item={item} index={index} />
+              {category?.map((item, index) => (
+                <SortingProductCard item={item} index={index} />
               ))}
             </Masonry>
           ) : (
