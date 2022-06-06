@@ -83,13 +83,6 @@ export default function SortingProduct() {
           <Col>
             <div className="text-header-product">Product</div>
             {categories?.map((item, index) => (
-            // <select onChange={(e) => setSortType(e.target.value)}> 
-            //     {/* <option value="price">By Price</option> */}
-            //     <option value="qty">qw</option>
-            //     <option value="qty">baju</option>
-            //     <option value="qty">juba</option>
-
-            // </select>
             <Link  
               to={`/category/` + item.id}  
               style={{ textDecoration: "none" ,marginRight:"20px"}}
@@ -106,7 +99,7 @@ export default function SortingProduct() {
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >
-              {category?.map((item, index) => (
+              {categories?.map((item, index) => (
                 <SortingProductCard item={item} index={index} />
               ))}
             </Masonry>
