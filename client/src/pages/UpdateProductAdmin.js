@@ -31,6 +31,7 @@ export default function UpdateProductAdmin() {
     price: "",
     qty: "",
   }); //Store product data
+  console.log(form);
 
   // Fetching detail product data by id from database
   let { productRefetch } = useQuery("productCache", async () => {

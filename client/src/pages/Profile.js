@@ -9,24 +9,20 @@ import { UserContext } from "../context/userContext";
 
 import imgBlank from "../assets/blank-profile.png";
 
-import AddProfile from '../components/modal/AddProfile';
-
 // Import useQuery
 import { useQuery } from "react-query";
 
 // API config
 import { API } from "../config/api";
+import { useNavigate } from "react-router";
 
 export default function Profile() {
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const title = "Profile";
   document.title = title;
 
   let api = API();
+  let navigate = useNavigate();
 
   const [state] = useContext(UserContext);
 
@@ -40,7 +36,7 @@ export default function Profile() {
           Authorization: "Basic " + localStorage.token,
         },
       };
-      const response = await api.get("/profile", config);
+      const response = await api.get("/profiles", config);
       return response.data;
       console.log(response.data)
     }
@@ -60,6 +56,12 @@ export default function Profile() {
       return response.data;
     }
   );
+  const addProfile = () => {
+    navigate("/add-profile");
+  };
+  const editProfile = (id) => {
+    navigate(`/edit-profile/${id}`);
+  };
 
   return (
     <>
@@ -98,7 +100,23 @@ export default function Profile() {
                   {profile?.address ? profile?.address : "-"}
                 </div>
               </Col>
-            <Button onClick={handleShow} className="btn-danger mt-4">Add Profile</Button>
+              {profile != null ?(
+              <Button
+              onClick={() => {
+                editProfile(profile?.id);
+              }}
+               className="btn-dark mt-4"
+               >
+                 Edit
+              </Button>
+              ):(
+              <Button
+                onClick={addProfile}
+                className="btn-success mt-4"
+                >
+                  Add
+              </Button>
+              )}
             </Row>
           </Col>
           <Col md="6">
@@ -185,10 +203,6 @@ export default function Profile() {
             )}
           </Col>
         </Row>
-        <AddProfile 
-          show={show}
-          handleClose={handleClose}
-        />
       </Container>
     </>
   );

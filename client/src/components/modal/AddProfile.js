@@ -35,48 +35,28 @@ export default function AddProfile({show, handleClose}) {
 
 const handleSubmit = useMutation(async (e) => {
   try {
-    // e.preventDefault();
-
-    // // Store data with FormData as object
-    // const formData = new FormData();
-    // formData.set("image", form?.image[0], form?.image[0]?.name);
-    // formData.set("phone", form.phone);
-    // formData.set("gender", form.gender);
-    // formData.set("address", form.address);
-
-    // // Configuration
-    // const config = {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: "Basic " + localStorage.token,
-    //   },
-    //   body: formData,
-    // };
-
-    // // Insert product data
-    // const response = await api.post("/profile", config);
     e.preventDefault();
 
-    // Configuration Content-type
+    // Store data with FormData as object
+    const formData = new FormData();
+    formData.set("image", form?.image[0], form?.image[0]?.name);
+    formData.set("phone", form.phone);
+    formData.set("gender", form.gender);
+    formData.set("address", form.address);
+
+    // Configuration
     const config = {
+      method: "POST",
       headers: {
-        'Content-type': 'multipart/form-data',
+        Authorization: "Basic " + localStorage.token,
       },
+      body: formData,
     };
 
-    // Data body
-    const formData = new FormData()
-    formData.set('image', form.image[0], form.image[0].name)
-    formData.set('phone', form.phone)
-    formData.set('gender', form.gender)
-    formData.set('address', form.address)
+    // Insert product data
+    const response = await api.post("/profile", config);
 
-
-    // Insert data user to database
-    const response = await api.post('/profile', formData, config);
-    console.log(response.data.data);
-    // Handling response here
-
+   
     navigate("/profile");
   } catch (error) {
     console.log(error);

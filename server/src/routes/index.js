@@ -12,6 +12,7 @@ const {
 } = require('../controllers/user');
 //profile
 const { 
+  getProfiles,
   getProfile,
   addProfile,
   updateProfile 
@@ -50,7 +51,8 @@ router.delete('/user/:id', updateUser);
 router.delete('/user/:id', deleteUser);
 
 // router.get('/profile', auth, getProfile);
-router.get('/profiles',auth, getProfile);
+router.get('/profiles',auth, getProfiles);
+router.get('/profile/:id',auth, getProfile);
 router.post('/profile',auth,uploadFile('image'), addProfile);
 router.patch('/profile/:id',auth,uploadFile('image'), updateProfile);
 

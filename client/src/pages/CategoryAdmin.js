@@ -36,7 +36,7 @@ export default function CategoryAdmin() {
   });
 
   const handleEdit = (id) => {
-    navigate(`edit-category/${id}`);
+    navigate(`/edit-category/${id}`);
   };
 
   // For get id category & show modal confirm delete data

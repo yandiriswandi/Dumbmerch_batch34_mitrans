@@ -6,6 +6,7 @@ export const API = () => {
     const data = await response.json();
     return data;
   };
+  
 
   return {
     get: executeAPI,

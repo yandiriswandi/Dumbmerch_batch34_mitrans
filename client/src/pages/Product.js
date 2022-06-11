@@ -69,17 +69,18 @@ export default function Product() {
       <Container className="mt-5">
         <Row>
           <Col>
-            <div className="text-header-product">Product</div>
+            <div className="text-header-product mb-4">Product</div>
             {categories?.map((item, index) => (
             // <select onChange={(e) => setSortType(e.target.value)}> 
-            //     {/* <option value="price">By Price</option> */}
+            //     {/* <option value="price">Category</option> */}
             //     <option value="qty">qw</option>
             //     <option value="qty">baju</option>
             //     <option value="qty">juba</option>
 
             // </select>
             <Link  
-              to={`/category/` + item.id}  
+              to={`/category/` + item.id}
+              className="text-danger border border-danger rounded pt-1 pb-1 ps-2 pe-2"  
               style={{ textDecoration: "none" ,marginRight:"20px"}}
               key={index}
             >{item.name}

@@ -229,6 +229,6 @@ const updateProduct = async (orderId) => {
       id: transactionData.idProduct,
     },
   });
-  const qty = productData.qty - 1;
+  const qty = productData.qty - 1;//menguragi qty ketika transaksi success
   await product.update({ qty }, { where: { id: productData.id } });
 };

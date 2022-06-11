@@ -1,4 +1,4 @@
-const { category, productCategory } = require("../../models");
+const { category, productCategory,product } = require("../../models");
 
 exports.getCategories = async (req, res) => {
   try {
@@ -33,7 +33,7 @@ exports.getCategory = async (req, res) => {
         model: product,
         as: 'products',
         through: {
-          model: categoryProduct,
+          model: productCategory,
           as: 'bridge',
         },
         attributes: {

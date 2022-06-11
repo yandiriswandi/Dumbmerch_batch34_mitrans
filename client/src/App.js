@@ -13,7 +13,9 @@ import ProductAdmin from "./pages/ProductAdmin";
 import UpdateCategoryAdmin from "./pages/UpdateCategoryAdmin";
 import AddCategoryAdmin from "./pages/AddCategoryAdmin";
 import AddProductAdmin from "./pages/AddProductAdmin";
+import AddProfile from "./pages/AddProfile";
 import UpdateProductAdmin from "./pages/UpdateProductAdmin";
+import UpdateProfile from "./pages/UpdateProfile";
 import SortingProduct from "./pages/SortingProduct";
 
 import { API } from "./config/api";
@@ -87,7 +89,9 @@ function App() {
       <Route path="/add-category" element={< AddCategoryAdmin />} />
       <Route path="/product-admin" element={< ProductAdmin />} />
       <Route path="/add-product" element={< AddProductAdmin />} />
+      <Route path="/add-profile" element={< AddProfile />} />
       <Route path="/edit-product/:id" element={< UpdateProductAdmin />} />
+      <Route path="/edit-profile/:id" element={< UpdateProfile />} />
     </Routes>
   );
 }

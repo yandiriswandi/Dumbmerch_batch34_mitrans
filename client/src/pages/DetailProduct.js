@@ -26,6 +26,7 @@ export default function DetailProduct() {
       },
     };
     const response = await api.get('/product/' + id, config);
+    console.log(response);
     return response.data;
   });
 
